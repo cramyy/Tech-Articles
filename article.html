@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nimish's Demo: Tomorrow's Innovations Today</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        :root {
+            --primary-color: #3b82f6;
+            --secondary-color: #2563eb;
+            --background-color: #f3f4f6;
+            --text-color: #1f2937;
+            --accent-color: #f59e0b;
+            --card-bg-color: #ffffff;
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+            margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 80%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 3.5em;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            margin-top: 10px;
+            opacity: 0.9;
+            position: relative;
+        }
+
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 60px;
+        }
+
+        .tab {
+            background-color: var(--card-bg-color);
+            color: var(--primary-color);
+            border: none;
+            padding: 12px 24px;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab:hover,
+        .tab.active {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .article {
+            display: none;
+            background-color: var(--card-bg-color);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .article.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .article h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .article img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .article img:hover {
+            transform: scale(1.02);
+        }
+
+        .article p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #4a5568;
+            margin-bottom: 20px;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            color: #718096;
+        }
+
+        .article-meta i {
+            margin-right: 5px;
+        }
+
+        .article-meta span {
+            margin-right: 20px;
+        }
+
+        .read-more {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .read-more:hover {
+            background-color: #e3a008;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .tabs {
+                flex-direction: column;
+            }
+
+            .article {
+                padding: 30px;
+            }
+
+            h1 {
+                font-size: 2.5em;
+            }
+
+            .article h2 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Nimish's Demo</h1>
+        <div class="subtitle">Tomorrow's Innovations Today</div>
+    </header>
+
+    <div class="container">
+        <div class="tabs" id="tabsContainer"></div>
+        <div id="articlesContainer"></div>
+    </div>
+
+    <script>
+        const articles = [
+            {
+                title: "Quantum Computing: The Next Technological Frontier",
+                content: "Quantum computing represents a paradigm shift in computational power and capability. Unlike classical computers that use bits (0s and 1s), quantum computers use quantum bits or qubits. These qubits can exist in multiple states simultaneously, a phenomenon known as superposition. This property, along with quantum entanglement, allows quantum computers to perform certain calculations exponentially faster than classical computers.\n\nOne of the most promising applications of quantum computing is in the field of cryptography. Quantum computers have the potential to break many of the encryption methods currently used to secure digital communications. This has led to the development of quantum-resistant cryptographic algorithms, also known as post-quantum cryptography.\n\nIn the realm of drug discovery, quantum computing could dramatically accelerate the process of identifying new medications. By simulating molecular interactions at the quantum level, researchers could predict the effectiveness of potential drugs without the need for lengthy and expensive laboratory tests.\n\nQuantum computing also holds great promise for optimizing complex systems. In logistics and supply chain management, quantum algorithms could solve routing problems far more efficiently than classical methods, potentially revolutionizing industries like transportation and manufacturing.\n\nHowever, the road to practical quantum computing is not without challenges. Maintaining the delicate quantum states necessary for computation is extremely difficult, requiring sophisticated error correction techniques and ultra-low temperature environments. Despite these obstacles, companies like IBM, Google, and Microsoft are making significant strides in quantum hardware and software development.\n\nAs we look to the future, it's clear that quantum computing will play a crucial role in shaping the technological landscape. While it may not replace classical computing entirely, it will provide a powerful new tool for solving some of the world's most complex problems. The quantum revolution is just beginning, and its full impact on society and industry is yet to be realized.",
+                image: "https://media.licdn.com/dms/image/v2/D5612AQE1Oum7vHq8kg/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1713243299036?e=1735171200&v=beta&t=evZyqcZcc7oJBGdj1KXoqyAKDFdackyxNBDEB8SJ_eY",
+                author: "Nimish .S",
+                date: "May 15, 2024",
+                readTime: "8 min read"
+            },
+            {
+                title: "Edge AI: Bringing Intelligence to the Source",
+                content: "Edge AI represents a significant shift in how we approach artificial intelligence and data processing. By moving computational tasks from centralized cloud servers to local devices, Edge AI addresses several key challenges in AI implementation while opening up new possibilities for intelligent systems.\n\nOne of the primary advantages of Edge AI is reduced latency. By processing data locally, Edge AI systems can make decisions in real-time, which is crucial for applications like autonomous vehicles, industrial automation, and augmented reality. This low-latency processing can mean the difference between a self-driving car avoiding an accident or a factory robot responding instantly to changing conditions.\n\nPrivacy and security are also significantly enhanced with Edge AI. Since data is processed locally, sensitive information doesn't need to be sent to the cloud, reducing the risk of data breaches and unauthorized access. This is particularly important in sectors like healthcare and finance, where data privacy is paramount.\n\nEdge AI also offers improved efficiency and reliability. By reducing the amount of data that needs to be sent to the cloud, Edge AI systems can operate with lower bandwidth requirements and continue functioning even when internet connectivity is limited or unavailable. This makes Edge AI ideal for remote or mobile applications.\n\nIn the context of the Internet of Things (IoT), Edge AI is a game-changer. It allows IoT devices to become smarter and more autonomous, capable of making decisions without constantly relying on cloud servers. This not only improves response times but also reduces the overall energy consumption of IoT networks.\n\nHowever, implementing Edge AI comes with its own set of challenges. Edge devices often have limited computational resources compared to cloud servers, necessitating the development of more efficient AI algorithms and hardware. Additionally, managing and updating AI models across a distributed network of edge devices can be complex.\n\nDespite these challenges, the potential of Edge AI is enormous. As we continue to develop more powerful and efficient edge computing technologies, we can expect to see Edge AI playing an increasingly important role in shaping our technological future. From smarter homes to more efficient cities and safer transportation systems, Edge AI is set to transform how we interact with and benefit from artificial intelligence in our daily lives.",
+                image: "https://media.licdn.com/dms/image/D4D12AQGLWvU5fJX7Lw/article-cover_image-shrink_720_1280/0/1705561077513?e=2147483647&v=beta&t=JmA1UOoRvrgRQXePa93rY_o_r9IN9CGvOWi7-gG8EtI",
+                author: "Sadaan .b",
+                date: "June 2, 2024",
+                readTime: "7 min read"
+            },
+            {
+                title: "The Creative Revolution of Generative AI",
+                content: "Generative AI represents a paradigm shift in the field of artificial intelligence, moving beyond traditional data analysis and decision-making tasks to the realm of creation and innovation. This technology is capable of generating new, original content across various mediums, including text, images, music, and even code, based on patterns learned from vast datasets.\n\nAt the heart of generative AI are sophisticated machine learning models, particularly deep learning networks like Generative Adversarial Networks (GANs) and Variational Autoencoders (VAEs). These models are trained on enormous datasets, learning to understand and replicate the patterns and structures within the data. The result is an AI system that can generate new content that is often indistinguishable from human-created work.\n\nIn the visual arts, generative AI models like DALL·E, Midjourney, and Stable Diffusion have captured public imagination with their ability to create stunning, unique images from text descriptions. These tools are not just creating random images; they're interpreting complex prompts and generating coherent, often breathtaking visual responses. This technology is revolutionizing fields like graphic design, advertising, and even film production, offering new tools for rapid prototyping and idea generation.\n\nIn the realm of writing and language, models like GPT (Generative Pre-trained Transformer) have shown remarkable capabilities in generating human-like text. From writing articles and stories to creating marketing copy and even coding, these language models are pushing the boundaries of what's possible in natural language processing and generation.\n\nMusic is another field being transformed by generative AI. Systems can now compose original melodies, harmonies, and even full orchestral pieces. This technology is not only assisting composers and producers but also opening up new possibilities for personalized music experiences.\n\nIn the gaming industry, generative AI is being used to create dynamic, ever-changing game environments and storylines, offering players unique experiences each time they play. This technology is also being applied in procedural content generation, creating vast, detailed game worlds more efficiently than ever before.\n\nEven in scientific research, generative AI is making its mark. It's being used to generate hypotheses, design experiments, and even predict the outcomes of chemical reactions, potentially accelerating the pace of scientific discovery.\n\nHowever, the rise of generative AI also brings challenges and ethical considerations. Questions about copyright, authenticity, and the potential displacement of human creatives are at the forefront of discussions about this technology. There are also concerns about the potential misuse of generative AI, such as creating deepfakes or generating misleading information.\n\nDespite these challenges, the potential of generative AI to augment human creativity and productivity is immense. As we continue to refine these technologies and develop frameworks for their ethical use, generative AI is poised to become an invaluable tool across numerous industries, pushing the boundaries of what's possible in art, science, and technology.\n\nThe creative revolution brought about by generative AI is just beginning, and its full impact is yet to be realized. As we move forward, the collaboration between human creativity and AI-generated content promises to open up new frontiers of innovation and expression, fundamentally changing how we approach creative and problem-solving tasks.",
+                image: "https://ai-arts.org/wp-content/uploads/2024/02/AI-ARTS.ORG_2-896x640.jpg",
+                author: "Nimish .S",
+                date: "July 10, 2024",
+                readTime: "9 min read"
+            },
+            {
+                title: "Blockchain: Beyond the Crypto Craze",
+                content: "Blockchain technology, often associated with cryptocurrencies like Bitcoin, has emerged as a groundbreaking innovation with applications far beyond the realm of digital currencies. At its core, blockchain is a distributed ledger technology that allows for secure, transparent, and tamper-resistant record-keeping without the need for a central authority.\n\nThe fundamental principle of blockchain is its decentralized nature. Instead of relying on a single, centralized database, blockchain distributes identical copies of a ledger across a network of computers, or nodes. Each new transaction or piece of information is grouped into a 'block' and added to the 'chain' of existing records after being verified by the network through a consensus mechanism. This structure makes it extremely difficult to alter past records without detection, ensuring the integrity of the data.\n\nOne of the most promising applications of blockchain is in supply chain management. By implementing blockchain, companies can create an immutable record of a product's journey from manufacturer to consumer. This end-to-end traceability not only helps in combating counterfeit goods but also allows for quick identification of sources in case of recalls. For instance, in the food industry, blockchain can track produce from farm to table, enhancing food safety and allowing consumers to make more informed choices.\n\nIn healthcare, blockchain is revolutionizing how patient data is stored and shared. With blockchain, medical records can be securely stored and easily shared between healthcare providers while maintaining patient privacy. This not only improves the quality of care by ensuring that doctors have access to a patient's complete medical history but also gives patients more control over their personal health information. Furthermore, blockchain can enhance the integrity of clinical trials by providing a tamper-proof record of trial data, reducing fraud and errors in medical research.\n\nThe financial sector, beyond cryptocurrencies, is also benefiting from blockchain technology. Smart contracts, self-executing contracts with the terms of the agreement directly written into code, are streamlining various financial processes. These contracts can automate complex financial transactions, reducing the need for intermediaries and minimizing the risk of fraud or manipulation.\n\nBlockchain is also making waves in the realm of digital identity. By creating secure, decentralized digital identities, blockchain can help combat identity theft and fraud while giving individuals more control over their personal information. This has significant implications for everything from online banking to government services.\n\nIn the field of intellectual property, blockchain is being used to create immutable records of creation dates for patents, copyrights, and trademarks. This can help in resolving disputes and protecting the rights of creators and inventors.\n\nEven democratic processes are being influenced by blockchain technology. Blockchain-based voting systems have the potential to make elections more secure, transparent, and accessible, potentially increasing voter turnout and trust in the democratic process.\n\nDespite its potential, blockchain technology is not without challenges. Scalability, energy consumption (particularly in proof-of-work systems), and regulatory uncertainties are some of the hurdles that need to be addressed as the technology matures.\n\nAs we continue to explore and implement blockchain solutions, we're uncovering new ways to build trust, transparency, and efficiency into our digital systems. The technology is still in its early stages, and its full potential is yet to be realized. However, it's clear that blockchain has the power to revolutionize numerous industries, fundamentally changing how we approach data management, transactions, and trust in the digital age.",
+                image: "https://media.licdn.com/dms/image/D5612AQGOJ4fN28yt5Q/article-cover_image-shrink_720_1280/0/1677575244191?e=2147483647&v=beta&t=HZxOwyDYsGX6T_47wJzwaNdIK1YmeSw6QnQDVWD4EmM",
+                author: "Nimish",
+                date: "August 5, 2024",
+                readTime: "6 min read"
+            },
+            {
+                title: "AI-Powered Coding: The Future of Software Development",
+                content: "AI-powered coding tools are ushering in a new era in software development, fundamentally changing the way programmers work and interact with code. These tools, powered by advanced machine learning algorithms, are not just simple auto-completion features but sophisticated assistants capable of understanding context, suggesting complex code structures, and even explaining programming concepts.\n\nAt the forefront of this revolution are tools like GitHub Copilot, developed by GitHub in collaboration with OpenAI. Copilot uses a large language model trained on billions of lines of public code to provide context-aware code suggestions. As developers type, Copilot can suggest whole lines or entire functions, often anticipating the programmer's intent and offering solutions to complex coding problems.\n\nThe implications of these AI coding assistants are far-reaching. For experienced developers, these tools can significantly boost productivity by handling routine coding tasks, allowing programmers to focus on higher-level problem-solving and system design. They can suggest optimizations, point out potential bugs, and even generate unit tests, streamlining the development process.\n\nFor novice programmers, AI coding assistants can serve as powerful learning tools. They can provide explanations for suggested code, offer alternative implementations, and help newcomers understand best practices and coding conventions. This can potentially accelerate the learning curve for new developers, helping them to quickly gain proficiency in new programming languages and frameworks.\n\nIn the realm of code maintenance and legacy system management, AI assistants can be invaluable. They can help developers understand and work with unfamiliar codebases more quickly, suggest updates to outdated code, and assist in refactoring efforts. This can be particularly useful in large organizations dealing with complex, long-lived software systems.\n\nHowever, the rise of AI-powered coding also raises important questions and challenges. One major concern is the potential impact on code quality. While AI assistants can generate functional code quickly, there's a risk that developers might become over-reliant on these tools, potentially leading to a decrease in deep understanding of programming concepts and best practices.\n\nIntellectual property is another significant concern. As these AI models are trained on public repositories, questions arise about the originality and licensing of the generated code. There are ongoing discussions and legal considerations around how to properly attribute and license AI-generated code.\n\nThere's also the question of how AI-powered coding will affect the job market for programmers. While these tools are currently positioned as assistants rather than replacements for human developers, they may significantly change the skills required in the software development industry.\n\nDespite these challenges, the potential of AI-powered coding to transform software development is immense. As these tools continue to evolve, we can expect to see even more sophisticated capabilities, such as AI-driven software architecture design, automated bug fixing, and perhaps even AI systems capable of turning high-level descriptions directly into functional software.\n\nThe key to successfully integrating AI-powered coding into the software development process lies in finding the right balance. These tools should be viewed as powerful assistants that augment human creativity and problem-solving skills, rather than replacements for human developers. By leveraging AI to handle routine tasks and provide intelligent suggestions, developers can focus on the more complex, creative aspects of software design and architecture.\n\nAs we move forward, it will be crucial to develop best practices for using AI coding assistants, update educational curricula to prepare new developers for this AI-augmented landscape, and continue to refine these tools to ensure they enhance rather than diminish the skills of human programmers. The future of software development is likely to be a collaborative effort between human creativity and AI capabilities, opening up new possibilities for innovation and efficiency in the world of coding.",
+                image: "https://media.geeksforgeeks.org/wp-content/uploads/20240315155406/Devin-AI-The-Next-Evolution-in-Software-Development-(1).webp",
+                author: "Nimish",
+                date: "September 12, 2024",
+                readTime: "10 min read"
+            }
+        ];
+
+        const tabsContainer = document.getElementById('tabsContainer');
+        const articlesContainer = document.getElementById('articlesContainer');
+
+        articles.forEach((article, index) => {
+            const tab = document.createElement('button');
+            tab.className = 'tab';
+            tab.textContent = article.title;
+            tab.onclick = () => showArticle(index);
+            tabsContainer.appendChild(tab);
+
+            const articleDiv = document.createElement('div');
+            articleDiv.className = 'article';
+            articleDiv.innerHTML = `
+                <h2>${article.title}</h2>
+                <div class="article-meta">
+                    <span><i class="fas fa-user"></i> ${article.author}</span>
+                    <span><i class="fas fa-calendar"></i> ${article.date}</span>
+                    <span><i class="fas fa-clock"></i> ${article.readTime}</span>
+                </div>
+                <img src="${article.image}" alt="${article.title}">
+                <p>${article.content}</p>
+                <a href="#" class="read-more">Read Full Article</a>
+            `;
+            articlesContainer.appendChild(articleDiv);
+        });
+
+        function showArticle(index) {
+            gsap.to(window, { duration: 0.5, scrollTo: "#articlesContainer" });
+
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab')[index].classList.add('active');
+
+            gsap.to('.article.active', {
+                opacity: 0,
+                y: -20,
+                duration: 0.3,
+                onComplete: () => {
+                    document.querySelectorAll('.article').forEach(article => article.classList.remove('active'));
+                    document.querySelectorAll('.article')[index].classList.add('active');
+
+                    gsap.fromTo('.article.active',
+                        { opacity: 0, y: 20 },
+                        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }
+                    );
+                }
+            });
+        }
+
+        // Animate header elements on load
+        gsap.from('h1', { opacity: 0, y: -50, duration: 1, ease: 'power3.out' });
+        gsap.from('.subtitle', { opacity: 0, y: 50, duration: 1, delay: 0.5, ease: 'power3.out' });
+
+        // Animate tabs on load
+
+
+        // Show the first article by default
+        showArticle(0);
+
+        // Add scroll-triggered animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.utils.toArray('.article').forEach((article, i) => {
+            gsap.from(article, {
+                opacity: 0,
+                y: 50,
+                duration: 1,
+                scrollTrigger: {
+                    trigger: article,
+                    start: 'top 80%',
+                    toggleActions: 'play none none reverse'
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
